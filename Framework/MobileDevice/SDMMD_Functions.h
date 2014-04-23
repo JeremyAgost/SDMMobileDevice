@@ -540,7 +540,7 @@ ATR_UNUSED static BIO* SDMMD__create_bio_from_data(CFDataRef data) {
 
 ATR_UNUSED static CFMutableDictionaryRef SDMMD__CreatePairingMaterial(CFDataRef deviceCert) {
 	CFMutableDictionaryRef record = NULL;
-	RSA *pubRSAKey, *rsaBIOData = NULL;
+	RSA *pubRSAKey = NULL, *rsaBIOData = NULL;
     BIO *deviceBIO = SDMMD__create_bio_from_data(deviceCert);
     if (deviceBIO) {
 	    rsaBIOData = PEM_read_bio_RSAPublicKey(deviceBIO, &pubRSAKey, 0x0, 0x0);
@@ -694,7 +694,6 @@ ATR_UNUSED static CFMutableDictionaryRef SDMMD__CreatePairingMaterial(CFDataRef 
 	}
 	CFSafeRelease(rootCert);
 	CFSafeRelease(hostCert);
-	CFSafeRelease(deviceCert);
 	CFSafeRelease(rootPrivKey);
 	CFSafeRelease(hostPrivKey);
 	CFSafeRelease(hostId);
@@ -705,8 +704,6 @@ ATR_UNUSED static CFMutableDictionaryRef SDMMD__CreatePairingMaterial(CFDataRef 
 	Safe(X509_free,rootX509);
 	Safe(X509_free,hostX509);
 	Safe(X509_free,deviceX509);
-	Safe(RSA_free,rootKeyPair);
-	Safe(RSA_free,hostKeyPair);
 	
     return record;
 }
