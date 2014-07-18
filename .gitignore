@@ -17,3 +17,8 @@ xcuserdata
 SDMMobileDevice.xcworkspace/xcuserdata/
 SDMMobileDevice.podspec
 podspec
+
+# object files
+*.o
+*.so
+

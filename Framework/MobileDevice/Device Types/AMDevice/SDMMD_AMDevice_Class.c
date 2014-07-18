@@ -30,7 +30,12 @@
 
 #include "SDMMD_AMDevice_Class.h"
 #include "SDMMD_AMDevice_Internal.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 

@@ -28,7 +28,11 @@
 #ifndef _SDM_MD_MRESTORABLEDEVICE_H_
 #define _SDM_MD_MRESTORABLEDEVICE_H_
 
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 struct AMRestorableDeviceClassHeader {
 	unsigned char header[16];

@@ -1,0 +1,120 @@
+libname = SDMMobileDevice
+
+CFLAGS += -fPIC
+CFLAGS += -O0
+
+CFLAGS += -I./
+CFLAGS += -I../..	# so SDMCore headers are available
+CFLAGS += -include ./CFLinuxCompatibility.h
+CFLAGS += -D __SDM_CORE_LIB
+
+CXXFLAGS += -fPIC
+CXXFLAGS += -O3
+
+LDLIBS += -lc
+LDLIBS += -lm
+LDLIBS += -lz
+LDLIBS += -lssl
+LDLIBS += -lcrypto
+LDLIBS += -lBlocksRuntime
+LDLIBS += -ldispatch
+LDLIBS += -lCoreFoundation
+LDLIBS += -lSDMCore
+LDLIBS += -L../../SDMCore
+LDLIBS += -L$(PREFIX)/lib
+
+objects = \
+	CFNotificationCenterCompatibility.o \
+	SDMMD_AFCConnection_Class.o \
+	SDMMD_AFCOperation_Class.o \
+	SDMMD_AMDevice_Class.o \
+	SDMMD_AMDevice.o \
+	SDMMD_AppleFileConduit.o \
+	SDMMD_Applications.o \
+	SDMMD_Connection_Class.o \
+	SDMMD_Connection.o \
+	SDMMD_Debugger.o \
+	SDMMD_Error.o \
+	SDMMD_Functions.o \
+	SDMMD_Initialize.o \
+	SDMMD_MCP_Class.o \
+	SDMMD_MCP.o \
+	SDMMD_MDFUModeDevice.o \
+	SDMMD_MobileBackup2.o \
+	SDMMD_MRecoveryModeDevice.o \
+	SDMMD_MRestorableDevice.o \
+	SDMMD_MRestoreModeDevice.o \
+	SDMMD_MRUSBDevice.o \
+	SDMMD_Notification.o \
+	SDMMD_Service.o \
+	SDMMD_SSL_Functions.o \
+	SDMMD_USBMux_Protocol.o \
+	SDMMD_USBMuxListener_Class.o \
+	SDMMD_USBMuxListener.o
+
+lib$(libname).so : $(objects)
+	$(LINK.cc) -shared $^ $(LDFLAGS) $(LOADLIBES) $(LDLIBS) -o $@
+
+$(objects) : links \
+	CFRuntime.h \
+	CFNotificationCenterCompatibility.h \
+	SDMMD_AFC_Types.h \
+	SDMMD_AFCConnection_Class.h \
+	SDMMD_AFCConnection_Internal.h \
+	SDMMD_AFCOperation_Class.h \
+	SDMMD_AFCOperation_Internal.h \
+	SDMMD_AMAuthInstall.h \
+	SDMMD_AMDevice_Class.h \
+	SDMMD_AMDevice_Internal.h \
+	SDMMD_AMDevice.h \
+	SDMMD_AppleFileConduit.h \
+	SDMMD_Applications.h \
+	SDMMD_Classes.h \
+	SDMMD_Connection_Class.h \
+	SDMMD_Connection_Internal.h \
+	SDMMD_Connection_Private.h \
+	SDMMD_Connection.h \
+	SDMMD_Debugger_Internal.h \
+	SDMMD_Debugger.h \
+	SDMMD_Error.h \
+	SDMMD_Functions.h \
+	SDMMD_Initialize.h \
+	SDMMD_Keys.h \
+	SDMMD_MCP_Class.h \
+	SDMMD_MCP_Internal.h \
+	SDMMD_MCP.h \
+	SDMMD_MDFUModeDevice.h \
+	SDMMD_MobileBackup2.h \
+	SDMMD_MobileConfig.h \
+	SDMMD_MRecoveryModeDevice.h \
+	SDMMD_MRestorableDevice.h \
+	SDMMD_MRestoreModeDevice.h \
+	SDMMD_MRUSBDevice.h \
+	SDMMD_Notification.h \
+	SDMMD_pcap.h \
+	SDMMD_Service.h \
+	SDMMD_SSL_Functions.h \
+	SDMMD_Types.h \
+	SDMMD_USBMux_Protocol.h \
+	SDMMD_USBMuxListener_Class.h \
+	SDMMD_USBMuxListener_Internal.h \
+	SDMMD_USBMuxListener_Types.h \
+	SDMMD_USBMuxListener.h \
+	SDMTranslation.h \
+	SDMTypeTranslation.h
+
+.PHONY : all clean links clean-links
+
+all : \
+	$(objects) \
+	lib$(libname).so
+
+clean : clean-links
+	-rm -f $(objects) lib$(libname).so
+	
+links: clean-links
+	-find . -name "*.h" -exec ln -vs {} . ';'
+	-find . -name "*.c" -exec ln -vs {} . ';'
+
+clean-links:
+	-find . -type l -maxdepth 1 -exec rm -vf {} ';'

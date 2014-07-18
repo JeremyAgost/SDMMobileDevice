@@ -32,7 +32,12 @@
 #include "SDMMD_Connection.h"
 #include "SDMMD_Connection_Internal.h"
 #include "SDMMD_AFCConnection_Internal.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 static Boolean SDMMD_AFCConnectionRefEqual(CFTypeRef cf1, CFTypeRef cf2) {
 	SDMMD_AFCConnectionRef connection1 = (SDMMD_AFCConnectionRef)cf1;

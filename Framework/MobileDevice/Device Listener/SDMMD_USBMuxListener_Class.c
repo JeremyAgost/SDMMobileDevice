@@ -30,7 +30,12 @@
 
 #include "SDMMD_USBmuxListener_Class.h"
 #include "SDMMD_USBMuxListener_Internal.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 static Boolean SDMMD_USBMuxListenerRefEqual(CFTypeRef cf1, CFTypeRef cf2) {
 	SDMMD_USBMuxListenerRef listener1 = (SDMMD_USBMuxListenerRef)cf1;

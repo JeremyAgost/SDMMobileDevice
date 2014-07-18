@@ -12,7 +12,12 @@
 #include "SDMMD_MobileBackup2.h"
 #include "SDMMD_Connection_Internal.h"
 #include "SDMMD_Service.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 sdmmd_return_t SDMMD_MB2SendFileStream(SDMMD_AMConnectionRef conn, CFStringRef path, CFDataRef file) {
 	sdmmd_return_t result = kAMDSuccess;

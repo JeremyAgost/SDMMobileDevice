@@ -30,7 +30,12 @@
 
 #include "SDMMD_MCP_Class.h"
 #include "SDMMD_MCP_Internal.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 static void SDMMD_SDMMobileDeviceRefFinalize(CFTypeRef cf) {
 	SDMMobileDeviceRef manager = (SDMMobileDeviceRef)cf;

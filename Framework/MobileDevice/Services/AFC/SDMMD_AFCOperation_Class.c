@@ -31,7 +31,12 @@
 #include "SDMMD_AFCOperation_Class.h"
 #include "SDMMD_AFC_Types.h"
 #include "SDMMD_AFCOperation_Internal.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 static Boolean SDMMD_AFCOperationRefEqual(CFTypeRef cf1, CFTypeRef cf2) {
 	SDMMD_AFCOperationRef operation1 = (SDMMD_AFCOperationRef)cf1;

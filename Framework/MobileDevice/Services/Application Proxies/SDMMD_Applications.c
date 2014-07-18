@@ -35,7 +35,12 @@
 #include "SDMMD_AMDevice.h"
 #include "SDMMD_AppleFileConduit.h"
 #include "SDMMD_Connection_Private.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 #define kAppLookupMasterKey "ReturnAttributes"
 

@@ -36,8 +36,13 @@
 #include "SDMMD_Functions.h"
 #include <string.h>
 #include <sys/types.h>
-#include "Core.h"
 #include <dirent.h>
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
+#include "Core.h"
+#endif
 
 #define kAFCMaxTransferSize 4194304
 

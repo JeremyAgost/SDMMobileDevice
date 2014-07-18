@@ -38,7 +38,12 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <sys/un.h>
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 typedef struct USBMuxResponseCode {
 	uint32_t code;

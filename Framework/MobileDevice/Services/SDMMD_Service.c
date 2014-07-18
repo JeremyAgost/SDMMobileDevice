@@ -36,7 +36,12 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/select.h>
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 int32_t CheckIfExpectingResponse(SocketConnection handle, uint32_t timeout) {
 	fd_set fds;

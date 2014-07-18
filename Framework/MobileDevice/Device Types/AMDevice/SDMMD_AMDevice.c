@@ -49,7 +49,6 @@
 #include "CFRuntime.h"
 #include <CoreFoundation/CFBase.h>
 #include <CoreFoundation/CFString.h>
-#include "Core.h"
 #include "SDMMD_Functions.h"
 #include "SDMMD_AppleFileConduit.h"
 #include "SDMMD_SSL_Functions.h"
@@ -60,6 +59,11 @@
 #include <IOKit/IOCFPlugIn.h>
 #include <mach/mach_port.h>
 
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
+#include "Core.h"
+#endif
 
 SDMMD_lockdown_conn* SDMMD_lockdown_connection_create(uint32_t socket) {
 	SDMMD_lockdown_conn *lockdown = calloc(0x1, sizeof(SDMMD_lockdown_conn));

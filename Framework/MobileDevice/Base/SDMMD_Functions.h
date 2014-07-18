@@ -44,7 +44,13 @@
 #include "SDMMD_Error.h"
 #include "SDMMD_AMDevice.h"
 #include "SDMMD_Applications.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/CoreFoundation/CFTypeAddition.h>
+#else
 #include "CFTypeAddition.h"
+#endif
+
 //#include "SDMMD_SSL_Functions.h"
 
 #if WIN32

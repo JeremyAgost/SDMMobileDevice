@@ -30,7 +30,12 @@
 
 #include "SDMMD_Connection_Class.h"
 #include "SDMMD_Connection_Internal.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 

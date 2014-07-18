@@ -38,7 +38,12 @@
 #include <stdio.h>
 #include <signal.h>
 #include <getopt.h>
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
 #include "Core.h"
+#endif
 
 #define kChecksumHashLength 0x3
 

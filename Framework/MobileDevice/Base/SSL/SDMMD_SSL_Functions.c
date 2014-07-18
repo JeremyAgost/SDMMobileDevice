@@ -29,8 +29,13 @@
 #define _SDM_MD_SSL_FUNCTIONS_C_
 
 #include "SDMMD_SSL_Functions.h"
-#include "Core.h"
 #include "SDMMD_Error.h"
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
+#include "Core.h"
+#endif
 
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 

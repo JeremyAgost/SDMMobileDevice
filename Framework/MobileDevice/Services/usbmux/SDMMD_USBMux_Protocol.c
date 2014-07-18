@@ -31,8 +31,13 @@
 #include "SDMMD_USBMux_Protocol.h"
 #include "SDMMD_USBMuxListener.h"
 #include "SDMMD_USBMuxListener_Internal.h"
-#include "Core.h"
 #include <sys/socket.h>
+
+#if __SDM_CORE_LIB
+#include <SDMCore/Core.h>
+#else
+#include "Core.h"
+#endif
 
 void SDMMD_USBMuxSend(uint32_t sock, struct USBMuxPacket *packet);
 void SDMMD_USBMuxReceive(uint32_t sock, struct USBMuxPacket *packet);
