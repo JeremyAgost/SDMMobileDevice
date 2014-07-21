@@ -28,6 +28,23 @@
 #ifndef _SDM_MOBILE_DEVICE_H_
 #define _SDM_MOBILE_DEVICE_H_
 
+#if __SDM_MD_LIB
+
+/* Headers should be accessed from the exported path */
+#include <SDMMobileDevice/SDMMD_Initialize.h>
+
+#include <SDMMobileDevice/SDMMD_Functions.h>
+#include <SDMMobileDevice/SDMMD_AMDevice.h>
+#include <SDMMobileDevice/SDMMD_AppleFileConduit.h>
+#include <SDMMobileDevice/SDMMD_Error.h>
+#include <SDMMobileDevice/SDMMD_MCP.h>
+#include <SDMMobileDevice/SDMMD_USBMuxListener.h>
+#include <SDMMobileDevice/SDMMD_Applications.h>
+#include <SDMMobileDevice/SDMMD_Notification.h>
+#include <SDMMobileDevice/SDMMD_Debugger.h>
+
+#else
+
 #include "SDMMD_Initialize.h"
 
 #include "SDMMD_Functions.h"
@@ -39,5 +56,7 @@
 #include "SDMMD_Applications.h"
 #include "SDMMD_Notification.h"
 #include "SDMMD_Debugger.h"
+
+#endif
 
 #endif
