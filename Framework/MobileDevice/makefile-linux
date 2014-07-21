@@ -27,6 +27,7 @@ LDLIBS += -L$(PREFIX)/lib
 
 objects = \
 	CFNotificationCenterCompatibility.o \
+	SDMMD_AFC_Types.o \
 	SDMMD_AFCConnection_Class.o \
 	SDMMD_AFCOperation_Class.o \
 	SDMMD_AMDevice_Class.o \
@@ -52,6 +53,7 @@ objects = \
 	SDMMD_SSL_Functions.o \
 	SDMMD_USBMux_Protocol.o \
 	SDMMD_USBMuxListener_Class.o \
+	SDMMD_USBMuxListener_Types.o \
 	SDMMD_USBMuxListener.o
 
 lib$(libname).so : $(objects)
