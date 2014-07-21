@@ -33,7 +33,6 @@ objects = \
 	SDMMD_Applications.o \
 	SDMMD_Connection_Class.o \
 	SDMMD_Connection.o \
-	SDMMD_Debugger.o \
 	SDMMD_Error.o \
 	SDMMD_Functions.o \
 	SDMMD_Initialize.o \
@@ -74,8 +73,6 @@ $(objects) : links \
 	SDMMD_Connection_Internal.h \
 	SDMMD_Connection_Private.h \
 	SDMMD_Connection.h \
-	SDMMD_Debugger_Internal.h \
-	SDMMD_Debugger.h \
 	SDMMD_Error.h \
 	SDMMD_Functions.h \
 	SDMMD_Initialize.h \
