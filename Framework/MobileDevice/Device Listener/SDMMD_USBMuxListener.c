@@ -284,7 +284,10 @@ uint32_t SDMMD_ConnectToUSBMux() {
 		struct sockaddr_un address;
 		address.sun_family = AF_UNIX;
 		strncpy(address.sun_path, mux, sizeof(address.sun_path));
+#ifndef __linux__
+        // This field isn't in struct sockaddr_un on Linux because the kernel calculates it for you
 		address.sun_len = SUN_LEN(&address);
+#endif
 		
 		// Connect socket
 		if (connect(sock, (const struct sockaddr *)&address, sizeof(struct sockaddr_un))) {
