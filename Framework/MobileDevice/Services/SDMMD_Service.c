@@ -37,6 +37,9 @@
 #include <sys/types.h>
 #include <sys/select.h>
 
+// For endianess functions
+#include <arpa/inet.h>
+
 #if __SDM_CORE_LIB
 #include <SDMCore/Core.h>
 #else

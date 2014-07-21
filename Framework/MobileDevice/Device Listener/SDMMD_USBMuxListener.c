@@ -38,6 +38,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <sys/un.h>
+#include <arpa/inet.h>
 
 #if __SDM_CORE_LIB
 #include <SDMCore/Core.h>

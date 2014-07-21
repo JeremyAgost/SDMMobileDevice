@@ -31,6 +31,8 @@
 #include "SDMMD_AMDevice_Class.h"
 #include "SDMMD_AMDevice_Internal.h"
 
+#include <unistd.h>
+
 #if __SDM_CORE_LIB
 #include <SDMCore/Core.h>
 #else
