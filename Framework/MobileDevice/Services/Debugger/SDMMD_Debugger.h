@@ -28,6 +28,11 @@
 #ifndef _SDM_MD_DEBUGGER_H_
 #define _SDM_MD_DEBUGGER_H_
 
+/*
+ * Some targets may have issues with Debugger at present so this flag is offered as a way to disable it
+ */
+#if !__SDM_MD_Skip_Debugger
+
 #include "SDMMD_AMDevice.h"
 #include "SDMMD_Error.h"
 #include "SDMMD_Connection.h"
@@ -218,5 +223,7 @@ sdmmd_return_t SDMMD_stream_image(SDMMD_AMConnectionRef connection, CFStringRef 
 
 //sdmmd_debug_return_t SDMMD_DebuggingSend(SDMMD_AMDebugConnectionRef connection, SDMMD_DebugCommandType commandType, CFStringRef command);
 //sdmmd_debug_return_t SDMMD_DebuggingReceive(SDMMD_AMDebugConnectionRef connection, CFDataRef *data);
+
+#endif // !__SDM_MD_Skip_Debugger
 
 #endif

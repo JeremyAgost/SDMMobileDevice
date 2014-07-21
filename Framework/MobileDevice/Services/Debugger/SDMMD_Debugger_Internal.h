@@ -28,6 +28,8 @@
 #ifndef SDMMobileDevice_Framework_SDMMD_Debugger_Internal_h
 #define SDMMobileDevice_Framework_SDMMD_Debugger_Internal_h
 
+#if !__SDM_MD_Skip_Debugger
+
 #include <CoreFoundation/CoreFoundation.h>
 #include "SDMMD_AMDevice.h"
 
@@ -35,5 +37,7 @@ CFStringRef SDMMD_CopyDeviceSupportPathFromXCRUN();
 CFStringRef SDMMD_PathToDeviceSupport(SDMMD_AMDeviceRef device);
 CFStringRef SDMMD_PathToDeviceSupportDiskImage(CFStringRef device_support);
 CFDictionaryRef SDMMD_CreateImageDictionary(CFStringRef device_support_image);
+
+#endif // !__SDM_MD_Skip_Debugger
 
 #endif

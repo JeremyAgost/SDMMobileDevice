@@ -41,7 +41,10 @@
 #include <SDMMobileDevice/SDMMD_USBMuxListener.h>
 #include <SDMMobileDevice/SDMMD_Applications.h>
 #include <SDMMobileDevice/SDMMD_Notification.h>
+
+#if !__SDM_MD_Skip_Debugger
 #include <SDMMobileDevice/SDMMD_Debugger.h>
+#endif
 
 #else
 
@@ -55,7 +58,10 @@
 #include "SDMMD_USBMuxListener.h"
 #include "SDMMD_Applications.h"
 #include "SDMMD_Notification.h"
+
+#if !__SDM_MD_Skip_Debugger
 #include "SDMMD_Debugger.h"
+#endif
 
 #endif
 

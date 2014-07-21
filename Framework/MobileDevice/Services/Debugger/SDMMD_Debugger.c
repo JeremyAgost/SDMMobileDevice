@@ -28,6 +28,8 @@
 #ifndef _SDM_MD_DEBUGGER_C_
 #define _SDM_MD_DEBUGGER_C_
 
+#if !__SDM_MD_Skip_Debugger
+
 #include "SDMMD_Debugger.h"
 #include "SDMMD_Functions.h"
 #include "SDMMD_AppleFileConduit.h"
@@ -656,5 +658,7 @@ sdmmd_return_t SDMMD_DebuggingReceive(SDMMD_AMDebugConnectionRef dconn, CFDataRe
 	}
 	return result;
 }
+
+#endif // !__SDM_MD_Skip_Debugger
 
 #endif
