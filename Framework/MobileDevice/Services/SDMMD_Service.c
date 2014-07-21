@@ -293,6 +293,8 @@ sdmmd_return_t SDMMD_ServiceReceiveMessage(SocketConnection handle, CFPropertyLi
 }
 
 sdmmd_return_t SDMMD_ServiceSendStream(SocketConnection handle, CFPropertyListRef data, CFPropertyListFormat format) {
+    // CFWriteStream is not available in CF-Lite
+#if __APPLE__
 	CFStringRef errStr;
 	CFWriteStreamRef write = CFWriteStreamCreateWithAllocatedBuffers(kCFAllocatorDefault, kCFAllocatorDefault);
 
@@ -309,9 +311,14 @@ sdmmd_return_t SDMMD_ServiceSendStream(SocketConnection handle, CFPropertyListRe
 	CFWriteStreamClose(write);
 	CFSafeRelease(write);
 	return result;
+#else
+    return SDMMD_ServiceSendMessage(handle, data, format);
+#endif
 }
 
 sdmmd_return_t SDMMD_ServiceReceiveStream(SocketConnection handle, CFPropertyListRef *data) {
+    // CFReadStream is not available in CF-Lite
+#if __APPLE__
 	CFDataRef dataBuffer = NULL;
 	sdmmd_return_t result = SDMMD_ServiceReceive(handle, &dataBuffer);
 
@@ -329,6 +336,9 @@ sdmmd_return_t SDMMD_ServiceReceiveStream(SocketConnection handle, CFPropertyLis
 	
 	CFSafeRelease(dataBuffer);
 	ExitLabelAndReturn(result);
+#else
+    return SDMMD_ServiceReceiveMessage(handle, data);
+#endif
 }
 
 SocketConnection SDMMD_TranslateConnectionToSocket(SDMMD_AMConnectionRef connection) {
