@@ -178,7 +178,22 @@ CFMutableDictionaryRef SDMMD__CreateMessageDict(CFStringRef type) {
 	CFMutableDictionaryRef dict = SDMMD__CreateRequestDict(type);
 	if (dict) {
 		CFDictionarySetValue(dict, CFSTR("ProtocolVersion"), CFSTR("2"));
+#if __APPLE__
 		const char *appName = getprogname();
+#else
+        static char * appName;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            CFUUIDRef appUUID = CFUUIDCreate(kCFAllocatorDefault);
+            CFStringRef appUUIDString = CFUUIDCreateString(kCFAllocatorDefault, appUUID);
+            CFStringRef appString = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("sdmmobiledevice-%s"), CFStringGetCStringPtr(appUUIDString, kCFStringEncodingUTF8));
+            CFRelease(appUUIDString);
+            CFRelease(appUUID);
+            
+            appName = calloc(1, CFStringGetMaximumSizeForEncoding(CFStringGetLength(appString), kCFStringEncodingUTF8));
+            CFRelease(appString);
+        });
+#endif
 		if (appName) {
 			CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, appName, kCFStringEncodingUTF8);
 			if (name) {
