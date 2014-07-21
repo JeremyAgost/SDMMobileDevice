@@ -7,6 +7,7 @@ CFLAGS += -I./
 CFLAGS += -I../..	# so SDMCore headers are available
 CFLAGS += -include ./CFLinuxCompatibility.h
 CFLAGS += -D __SDM_CORE_LIB
+CFLAGS += -D __SDM_MD_LIB
 CFLAGS += -D __SDM_MD_Skip_Debugger
 
 CXXFLAGS += -fPIC
