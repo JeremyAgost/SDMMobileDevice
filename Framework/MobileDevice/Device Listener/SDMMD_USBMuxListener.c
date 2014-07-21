@@ -263,7 +263,8 @@ uint32_t SDMMD_ConnectToUSBMux() {
 		}
 	}
 	
-	if (!result) {
+#if __APPLE__
+    if (!result) {
 		// Disable SIGPIPE on socket i/o error
 		uint32_t noPipe = 1;
 		if (setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &noPipe, sizeof(noPipe))) {
@@ -272,6 +273,10 @@ uint32_t SDMMD_ConnectToUSBMux() {
 			printf("%s: setsockopt SO_NOSIGPIPE failed: %d - %s\n", __FUNCTION__, err, strerror(err));
 		}
 	}
+#else
+    // NOSIGPIPE socket option only avaialble on BSD, other platforms will ignore signal
+    signal(SIGPIPE, SIG_IGN);
+#endif
 	
 	if (!result) {
 		// Create address structure to point to usbmuxd socket
