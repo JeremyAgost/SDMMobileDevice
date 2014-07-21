@@ -673,7 +673,14 @@ sdmmd_return_t SDMMD_AMDeviceCopy(SDMMD_AFCConnectionRef conn, char *local, char
 			DIR *dir = opendir(local);
 			while ((ent = readdir(dir)) != NULL) {
 				char *file_name = ent->d_name;
-				if (!((strncmp(file_name, ".", sizeof(char[1])) == 0 && ent->d_namlen == 1) || (strncmp(file_name, "..", sizeof(char[2])) == 0 && ent->d_namlen == 2))) {
+                int file_name_length;
+#if __APPLE__
+                file_name_length = ent->d_namlen;
+#else
+                file_name_length = strlen(file_name);
+#endif
+				if (!((strncmp(file_name, ".", sizeof(char[1])) == 0 && file_name_length == 1) ||
+                      (strncmp(file_name, "..", sizeof(char[2])) == 0 && file_name_length == 2))) {
 					uint32_t local_length = (uint32_t)strlen(local)+1+(uint32_t)strlen(file_name)+1;
 					char *new_local = calloc(local_length, sizeof(char));
 					snprintf(new_local, local_length, "%s/%s",local,file_name);
