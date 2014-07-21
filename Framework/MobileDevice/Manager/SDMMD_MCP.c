@@ -37,7 +37,7 @@
 #include "SDMMD_SSL_Functions.h"
 #include "SDMMD_MCP_Internal.h"
 
-static SDMMobileDeviceRef controller = nil;
+static SDMMobileDeviceRef controller = NULL;
 static dispatch_once_t once;
 
 SDMMobileDeviceRef InitializeSDMMobileDevice() {
