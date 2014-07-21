@@ -1,0 +1,13 @@
+
+.PHONY: library tests clean
+
+library:
+	$(MAKE) -C SDMCore -f makefile-linux
+	$(MAKE) -C SDMMobileDevice -f makefile-linux
+	
+tests: library
+	$(MAKE) -C SDMMobileDeviceTests -f makefile-linux
+
+clean:
+	$(MAKE) -C SDMCore -f makefile-linux clean
+	$(MAKE) -C SDMMobileDevice -f makefile-linux clean
