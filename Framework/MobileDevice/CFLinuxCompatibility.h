@@ -23,6 +23,9 @@ typedef int kern_return_t;
 // SDMMobileDevice uses this darwin type
 typedef int32_t __darwin_suseconds_t;
 
+// This specifier is only necessary for Swift
+#define __unsafe_unretained
+
 #include <CoreFoundation/CoreFoundation.h>
 
 #include <dispatch/dispatch.h>
