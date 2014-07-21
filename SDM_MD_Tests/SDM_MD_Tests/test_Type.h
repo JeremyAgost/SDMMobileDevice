@@ -9,7 +9,22 @@
 #ifndef SDM_MD_Tests_test_Type_h
 #define SDM_MD_Tests_test_Type_h
 
+#if __APPLE__
+
 #include "MobileDevice.h"
+
+#else
+
+// Make this dummy type available
+typedef struct am_device am_device;
+
+#endif
+
+// Provide for non-Apple platforms
+#ifndef KERN_SUCCESS
+#define KERN_SUCCESS 0
+#endif
+
 #include <SDMMobileDevice/SDMMobileDevice.h>
 
 enum SDM_MD_TestResponse {

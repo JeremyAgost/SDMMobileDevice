@@ -12,6 +12,8 @@
 #include "listener.h"
 #include "test_Type.h"
 
+#if __APPLE__
+
 dispatch_semaphore_t got_apple_device;
 
 struct AMDeviceNotificationCallbackInformation {
@@ -73,6 +75,8 @@ void callback(struct AMDeviceNotificationCallbackInformation *CallbackInfo) {
 	
 }
 
+#endif
+
 kern_return_t StartListener(dispatch_semaphore_t sema) {
 	
 	__block kern_return_t result = KERN_SUCCESS;
@@ -88,6 +92,7 @@ kern_return_t StartListener(dispatch_semaphore_t sema) {
 		sdm_test_device = sdm_device;
 	}
 	
+#if __APPLE__
 	got_apple_device = dispatch_semaphore_create(0);
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -103,7 +108,8 @@ kern_return_t StartListener(dispatch_semaphore_t sema) {
 	
 	dispatch_semaphore_wait(got_apple_device, DISPATCH_TIME_FOREVER);
 	dispatch_release(got_apple_device);
-	dispatch_semaphore_signal(sema);
+#endif
+    dispatch_semaphore_signal(sema);
 	
 	return result;
 }

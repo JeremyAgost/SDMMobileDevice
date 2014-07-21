@@ -12,8 +12,11 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include "test_AMDevice.h"
 
-#include "test_apple_AMDevice.h"
 #include "test_sdm_AMDevice.h"
+
+#if __APPLE__
+
+#include "test_apple_AMDevice.h"
 
 void Test_Compatibility_AMDevice(struct am_device *apple, SDMMD_AMDeviceRef sdm) {
 	LogTestName;
@@ -119,12 +122,18 @@ void Test_Compatibility_AMDevice(struct am_device *apple, SDMMD_AMDeviceRef sdm)
 	}
 }
 
+#endif
+
 void Test_Functionality_AMDevice(struct am_device *apple, SDMMD_AMDeviceRef sdm) {
 	LogTestName;
 	double test_pass = 0;
 	double test_fail = 0;
 	double test_total = 0;
 	
+	FunctionalityTestMacro(pairing_material, test_sdm__CreatePairingMaterial)
+	TestCount(pairing_material)
+    
+    printf("\n");
 	// AMDeviceUSBDeviceID Tests
 	FunctionalityTestMacro(usb_id,test_sdm_AMDeviceUSBDeviceID,sdm)
 	TestCount(usb_id)
@@ -186,6 +195,8 @@ void Test_Functionality_AMDevice(struct am_device *apple, SDMMD_AMDeviceRef sdm)
 		printf("No active tests.\n");
 	}
 }
+
+#if __APPLE__
 
 SDM_MD_TestResponse SDM_MD_Test_AMDeviceConnect(struct am_device *apple, SDMMD_AMDeviceRef sdm, char *type) {
 	SDM_MD_TestResponse response = SDM_MD_TestResponse_Invalid;
@@ -350,5 +361,6 @@ SDM_MD_TestResponse SDM_MD_Test_Sessioned_AMDeviceCopyValue(struct am_device *ap
 	return response;
 }
 
+#endif
 
 #endif

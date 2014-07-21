@@ -8,6 +8,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <SDMMobileDevice/SDMMobileDevice.h>
+#include <SDMMobileDevice/SDMMD_AMDevice_Internal.h>
 #include "tests.h"
 #include "listener.h"
 
@@ -29,23 +30,28 @@ int main(int argc, const char * argv[]) {
 	dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, 35LL * NSEC_PER_SEC);
 	dispatch_semaphore_wait(sema, timeout);
 	dispatch_release(sema);
-	
-	if (apple_test_device != NULL && sdm_test_device != NULL) {
-		CFTypeRef deviceUDID = SDMMD_AMDeviceCopyUDID(sdm_test_device);
-		if (!deviceUDID) {
-			deviceUDID = SDMMD_AMDeviceCopyValue(sdm_test_device, NULL, CFSTR(kUniqueDeviceID));
-		}
-		printf("Found device with ID: %s\n",CFStringGetCStringPtr(deviceUDID,kCFStringEncodingUTF8));
-		CFSafeRelease(deviceUDID);
-		
-		RunFunctionalityTests(apple_test_device, sdm_test_device);
-		printf("\n");
-		RunCompatibilityTests(apple_test_device, sdm_test_device);
-	}
-	else {
-		printf("Please attach a device to run tests\n");
-	}
-	
+    
+    if (
+#if __APPLE__
+        apple_test_device != NULL &&
+#endif
+        sdm_test_device != NULL
+        ) {
+        CFTypeRef deviceUDID = CFStringCreateCopy(kCFAllocatorDefault, sdm_test_device->ivars.unique_device_id);
+        if (!deviceUDID) {
+            deviceUDID = SDMMD_AMDeviceCopyValue(sdm_test_device, NULL, CFSTR(kUniqueDeviceID));
+        }
+        printf("Found device with ID: %s\n",CFStringGetCStringPtr(deviceUDID,kCFStringEncodingUTF8));
+        CFSafeRelease(deviceUDID);
+        
+        RunFunctionalityTests(apple_test_device, sdm_test_device);
+        printf("\n");
+        RunCompatibilityTests(apple_test_device, sdm_test_device);
+    }
+    else {
+        printf("Please attach a device to run tests\n");
+    }
+    
     return 0;
 }
 

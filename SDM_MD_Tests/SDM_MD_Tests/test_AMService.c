@@ -12,8 +12,11 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include "test_AMService.h"
 
-#include "test_apple_AMService.h"
 #include "test_sdm_AMService.h"
+
+#if __APPLE__
+
+#include "test_apple_AMService.h"
 
 void Test_Compatibility_AMService(struct am_device *apple, SDMMD_AMDeviceRef sdm) {
 	LogTestName;
@@ -56,6 +59,8 @@ void Test_Compatibility_AMService(struct am_device *apple, SDMMD_AMDeviceRef sdm
 	}
 }
 
+#endif
+
 void Test_Functionality_AMService(struct am_device *apple, SDMMD_AMDeviceRef sdm) {
 	LogTestName;
 	double test_pass = 0;
@@ -86,6 +91,8 @@ void Test_Functionality_AMService(struct am_device *apple, SDMMD_AMDeviceRef sdm
 		printf("No active tests.\n");
 	}
 }
+
+#if __APPLE__
 
 SDM_MD_TestResponse SDM_MD_Test_AMDeviceStartService(struct am_device *apple, SDMMD_AMDeviceRef sdm, char *type) {
 	SDM_MD_TestResponse response = SDM_MD_TestResponse_Invalid;
@@ -132,5 +139,7 @@ SDM_MD_TestResponse SDM_MD_Test_AMDeviceLookupApplications(struct am_device *app
 	
 	return response;
 }
+
+#endif
 
 #endif

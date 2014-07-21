@@ -11,8 +11,11 @@
 
 #include "test_AFC.h"
 
-#include "test_apple_AFC.h"
 #include "test_sdm_AFC.h"
+
+#if __APPLE__
+
+#include "test_apple_AFC.h"
 
 void Test_Compatibility_AFC(struct am_device *apple, SDMMD_AMDeviceRef sdm) {
 	LogTestName;
@@ -43,6 +46,8 @@ void Test_Compatibility_AFC(struct am_device *apple, SDMMD_AMDeviceRef sdm) {
 		printf("No active tests.\n");
 	}
 }
+
+#endif
 
 void Test_Functionality_AFC(SDMMD_AMDeviceRef sdm) {
 	LogTestName;
@@ -111,6 +116,8 @@ void Test_Functionality_AFC(SDMMD_AMDeviceRef sdm) {
 		printf("No active tests.\n");
 	}
 }
+
+#if __APPLE__
 
 SDM_MD_TestResponse SDM_MD_Test_AFCConnectionCreate(struct am_device *apple, SDMMD_AMDeviceRef sdm, char *type) {
 	SDM_MD_TestResponse response = SDM_MD_TestResponse_Invalid;
@@ -221,5 +228,7 @@ SDM_MD_TestResponse SDM_MD_Test_AFCOperationCreateFileRefOpen(struct am_device *
 	
 	return response;
 }
+
+#endif
 
 #endif
