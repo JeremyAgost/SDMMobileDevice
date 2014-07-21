@@ -1069,9 +1069,17 @@ sdmmd_return_t SDMMD__connect_to_port(SDMMD_AMDeviceRef device, uint32_t port, b
 					if (dataLen == sizeof(struct sockaddr_storage)) {
 						CFDataGetBytes(device->ivars.network_address, CFRangeMake(0, dataLen), (UInt8*)&address);
 						sock = socket(AF_INET, SOCK_STREAM, 0);
+                        
+                        // NOSIGPIPE socket option only avaialble on BSD, other platforms will ignore signal
+#if __APPLE__
+                        uint32_t mask = true;
 						if (setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &mask, sizeof(mask))) {
 							
 						}
+#else
+                        signal(SIGPIPE, SIG_IGN);
+#endif
+                        
 						if (setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout))) {
 						 
 						}
