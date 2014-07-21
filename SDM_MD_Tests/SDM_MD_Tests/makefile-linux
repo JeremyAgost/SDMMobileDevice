@@ -1,0 +1,54 @@
+testname = SDMMobileDeviceTests
+
+CFLAGS += -fPIC
+CFLAGS += -O0
+
+CFLAGS += -I./
+CFLAGS += -I../..	# so SDMCore and SDMMobileDevice headers are available
+CFLAGS += -include ./CFLinuxCompatibility.h
+CFLAGS += -D __SDM_CORE_LIB
+CFLAGS += -D __SDM_MD_LIB
+CFLAGS += -D __SDM_MD_Skip_Debugger
+
+LDLIBS += -lc
+LDLIBS += -lm
+LDLIBS += -lz
+LDLIBS += -lssl
+LDLIBS += -lcrypto
+LDLIBS += -lBlocksRuntime
+LDLIBS += -ldispatch
+LDLIBS += -lCoreFoundation
+LDLIBS += -lSDMCore
+LDLIBS += -lSDMMobileDevice
+LDLIBS += -L../../SDMCore
+LDLIBS += -L../../SDMMobileDevice
+LDLIBS += -L$(PREFIX)/lib
+
+objects = \
+	main.o \
+	listener.o \
+	test_AFC.o \
+	test_AMDevice.o \
+	test_AMService.o \
+	test_sdm_AFC.o \
+	test_sdm_AMDevice.o \
+	test_sdm_AMService.o \
+	tests.o
+
+$(testname) : $(objects)
+	$(CC) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+$(objects) : \
+	listener.h \
+	test_AFC.h \
+	test_AMDevice.h \
+	test_AMService.h \
+	test_sdm_AFC.h \
+	test_sdm_AMDevice.h \
+	test_sdm_AMService.h \
+	test_Type.h \
+	tests.h
+
+.PHONY : clean
+clean :
+	-rm -f $(objects) $(testname)

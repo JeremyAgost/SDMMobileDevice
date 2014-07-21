@@ -22,3 +22,5 @@ podspec
 *.o
 *.so
 
+# output binaries
+SDM_MD_Tests/SDM_MD_Tests/SDMMobileDeviceTests
