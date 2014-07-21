@@ -54,10 +54,13 @@
 #include "SDMMD_SSL_Functions.h"
 #include "SDMMD_MCP_Internal.h"
 
+#if __APPLE__
+// IOKit and mach ports not available on non-Apple platforms
 #include <IOKit/IOKitLib.h>
 #include <IOKit/usb/IOUSBLib.h>
 #include <IOKit/IOCFPlugIn.h>
 #include <mach/mach_port.h>
+#endif
 
 #if __SDM_CORE_LIB
 #include <SDMCore/Core.h>
@@ -679,6 +682,8 @@ sdmmd_return_t SDMMD__CopyEscrowBag(SDMMD_AMDeviceRef device, CFDataRef *bag) {
 }
 
 bool SDMMD_isDeviceAttachedUSB(uint32_t location_id) {
+    // SDMMD_isDeviceAttachedUSB is dependant on IOKit, always returns true on non-Apple
+#if __APPLE__
 	bool foundDevice = false;
 	io_iterator_t iterator;
 	mach_port_t masterPort;
@@ -710,6 +715,9 @@ bool SDMMD_isDeviceAttachedUSB(uint32_t location_id) {
 	}
 	mach_port_deallocate(mach_task_self(), masterPort);
 	return foundDevice;
+#else
+    return true;
+#endif
 }
 
 bool SDMMD_isDeviceAttached(uint32_t device_id) {
