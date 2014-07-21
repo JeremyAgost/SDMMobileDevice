@@ -6,13 +6,13 @@
 //
 //
 
+#ifndef _CFNotificationCenterCompatibility_h
+#define _CFNotificationCenterCompatibility_h
+
 #if __linux__
 
 /*
  * CFNotificationCenter isn't available in CFLite.
- * NSNotificationCenter is available through GNUStep, however.
- * This interface will allow CF code to use notification center by wrapping the 
- * NSNotificationCenter calls in C.
  */
 
 typedef void * CFNotificationCenterRef;
@@ -22,3 +22,5 @@ CF_EXPORT CFNotificationCenterRef CFNotificationCenterGetLocalCenter(void);
 CF_EXPORT void CFNotificationCenterPostNotification(CFNotificationCenterRef center, CFStringRef name, const void *object, CFDictionaryRef userInfo, Boolean deliverImmediately);
 
 #endif
+
+#endif // _CFNotificationCenterCompatibility_h

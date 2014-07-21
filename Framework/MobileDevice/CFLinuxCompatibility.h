@@ -30,6 +30,9 @@ typedef int32_t __darwin_suseconds_t;
 
 #include <dispatch/dispatch.h>
 
+// Subsititute for CFNotificationCenter functions used
+#include "CFNotificationCenterCompatibility.h"
+
 #endif // __linux__
 
 #endif // _CFLinuxCompatibility_h
