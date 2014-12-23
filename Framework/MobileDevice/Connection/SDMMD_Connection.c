@@ -181,6 +181,8 @@ sdmmd_return_t SDMMD_send_service_start(SDMMD_AMDeviceRef device, CFStringRef se
 			else {
 				*enableSSL = false;
 			}
+			
+			CFRelease(response);
 		}
 	}
 	
